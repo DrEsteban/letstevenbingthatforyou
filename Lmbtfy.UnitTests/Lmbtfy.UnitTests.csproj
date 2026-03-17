@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\api\Lmbtfy.Api.csproj" />
     <ProjectReference Include="..\Lmbtfy.Web\Lmbtfy.Web.csproj" />
   </ItemGroup>
 

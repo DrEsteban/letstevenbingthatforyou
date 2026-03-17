@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Let Steven Bing that for you!</title>
+    <meta name="description" content="Create a playful Bing-it-yourself link that shows people how to search their own question." />
+    <meta name="robots" content="noindex" />
+
+    <link rel="stylesheet" href="/css/Bing.css" />
+    <link rel="stylesheet" href="/css/Site.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+</head>
+<body data-page="home">
+    <table id="hp_table" role="none">
+        <tbody>
+            <tr>
+                <td id="hp_cellCenter" class="hp_hd">
+                    <div id="hp_container">
+                        <img src="/images/mouse_pointer.gif" id="fake_mouse" alt="Fake mouse pointer" />
+                        <div id="bgDiv"></div>
+
+                        <div id="sbox" class="sw_sform">
+                            <div class="hp_sw_logo hpcLogoWhite">
+                                <h1 class="a11yhide">Bing</h1>
+                                Bing
+                            </div>
+
+                            <div class="search_controls">
+                                <a id="hpinsthk" aria-hidden="true" tabindex="-1" href="javascript:void(0)"><span></span></a>
+
+                                <form method="post" action="/api/generate-url" role="none" id="sb_form" class="sw_box">
+                                    <div class="b_searchboxForm" role="search">
+                                        <input class="b_searchbox" id="sb_form_q" name="q" title="Enter your search term" type="search" value="" maxlength="1000" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" />
+                                        <div id="sbicom_loader" style="display:none"></div>
+                                        <div id="sb_go_par" data-sbtip="Request Link">
+                                            <input type="submit" class="b_searchboxSubmit" id="sb_form_go" tabindex="0" name="go" value="" />
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="instructions" id="homeInstructions">
+                                    <span>Type in a question and click the search button</span>
+                                </div>
+                            </div>
+
+                            <div id="lmbtfyResult" aria-live="polite"></div>
+                        </div>
+
+                        <div class="shader_left"></div>
+                        <div class="shader_right"></div>
+
+                        <div id="hp_bottomCell">
+                            <footer id="b_footer" class="b_footer" role="contentinfo" aria-label="Footer" data-priority="0">
+                                <div id="b_footerItems">
+                                    <span>&#169;<span data-current-year></span> LMBTFY - This site is not affiliated with Microsoft or Bing.com</span>
+                                    <span><a href="https://github.com/DrEsteban/letmebingthatforyou" title="LMBTFY GitHub Repo" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a></span>
+                                    <span>|</span>
+                                    <span><a href="/about">About</a></span>
+                                    <ul>
+                                        <li>Image provided by <a href="https://source.unsplash.com/" title="Unsplash Source" target="_blank" rel="noreferrer">Unsplash Source</a></li>
+                                    </ul>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <template id="bingResultTemplate">
+        <div>
+            <h1>Let Steven Bing that for you!</h1>
+            <h2 class="step1">Here's how you can do it yourself...</h2>
+            <ul class="steps">
+                <li class="step2">1. Navigate to <a href="https://www.bing.com">Bing.com</a></li>
+                <li class="step3">2. Enter your search query</li>
+                <li class="step4">3. Click the button and behold the results!</li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="/js/lmbtfy.js"></script>
+    <script src="/js/site.js"></script>
+</body>
+</html>

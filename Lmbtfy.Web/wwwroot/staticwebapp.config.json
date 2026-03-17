@@ -1,0 +1,22 @@
+{
+  "routes": [
+    {
+      "route": "/about",
+      "rewrite": "/about/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/about/*",
+      "/css/*",
+      "/js/*",
+      "/images/*",
+      "/lib/*",
+      "/favicon.ico"
+    ]
+  },
+  "platform": {
+    "apiRuntime": "dotnet:8.0"
+  }
+}
