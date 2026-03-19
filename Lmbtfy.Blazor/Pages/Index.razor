@@ -1,8 +1,7 @@
 ﻿@page "/"
 @using System.Net;
 
-@inject IJSRuntime JS
-@inject NavigationManager NavigationManager
+<PageTitle>Let Steven Bing That For You</PageTitle>
 
 <div id="bgDiv">
 </div>
@@ -14,12 +13,12 @@
     </div>
     <div class="search_controls">
         <a id="hpinsthk" aria-hidden="true" tabindex="-1" href="javascript:void(0)" h="ID=SERP,5093.1"><span></span></a>
-        <form action="/Home/GenerateUrl" role="none" id="sb_form" class="sw_box">
+        <form role="none" id="sb_form" class="sw_box" @onsubmit="DisplayModal" @onsubmit:preventDefault="true">
             <div class="b_searchboxForm" role="search">
                 <input @bind="SearchQuery" class="b_searchbox" id="sb_form_q" name="q" title="Enter your search term" type="search" maxlength="1000" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
                 <div id="sbicom_loader" style="display:none" data-ptn="Homepage" data-iid="SERP.5096" data-evt="postRBComplete"></div>
                 <div id="sb_go_par" data-sbtip="Request Link">
-                    <button @onclick="@(DisplayModal)" class="b_searchboxSubmit" id="sb_form_go" tabindex="0" name="go"></button>
+                    <button type="submit" class="b_searchboxSubmit" id="sb_form_go" tabindex="0" name="go"></button>
                 </div>
             </div>
         </form>
@@ -39,12 +38,6 @@
     public IModalService Modal { get; set; } = default!;
 
     public string? SearchQuery { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await JS.InvokeAsync<IJSObjectReference>(
-            "import", "./Pages/Index.razor.js");
-    }
 
     private void DisplayModal()
     {

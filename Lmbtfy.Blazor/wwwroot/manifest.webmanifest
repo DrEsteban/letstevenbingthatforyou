@@ -1,6 +1,6 @@
 {
-  "name": "Let Me Bing That For You",
-  "short_name": "LMBTFY",
+  "name": "Let Steven Bing That For You",
+  "short_name": "Steven Bing",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",

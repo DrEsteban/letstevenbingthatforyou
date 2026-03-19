@@ -1,4 +1,5 @@
-﻿@using System.Net;
+﻿@using System.Net.Http.Json;
+@using System.Text.Json.Serialization;
 
 @inject IHttpClientFactory ClientFactory
 @inject NavigationManager NavigationManager
@@ -7,12 +8,12 @@
 <div class="url-container">
     <div class="url-content @(isCopied ? "copied" : "")">
         <div class="header">
-            <h2>Share your Bing tutorial</h2>
+            <h2>Share your Let Steven Bing That For You link</h2>
             <p class="subtitle">Help others learn how to search efficiently</p>
         </div>
         <div class="url-box">
             <div class="input-container">
-                <input id="lmbtfyLink" @bind="@TinyUrl" readonly 
+                <input id="lmbtfyLink" @bind="@ShortUrl" readonly 
                        class="@(isCopied ? "success" : "")"
                        title="Click the copy button to copy this URL" />
                 <div class="copy-success @(isCopied ? "show" : "")">
@@ -36,7 +37,7 @@
             </a>
             <div class="powered-by">
                 <i class="fas fa-link"></i>
-                <small>Shortened by <a href="https://tinyurl.com" target="_blank" rel="noopener noreferrer">TinyURL.com</a></small>
+                <small>Shortened by <a href="https://zip1.io" target="_blank" rel="noopener noreferrer">zip1.io</a></small>
             </div>
         </div>
     </div>
@@ -288,23 +289,26 @@
 
     public string? Url { get; set; }
 
-    public string? TinyUrl { get; set; }
+    public string? ShortUrl { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Url = NavigationManager.BaseUri + $"BingThis/{Query}";
-        TinyUrl = await GenerateTinyUrl(Url);
+        ShortUrl = await GenerateShortUrl(Url);
     }
 
     private bool isCopied = false;
 
     private async Task CopyToClipboard()
     {
-        if (string.IsNullOrEmpty(TinyUrl)) return;
+        if (string.IsNullOrEmpty(ShortUrl))
+        {
+            return;
+        }
         
         try
         {
-            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", TinyUrl);
+            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", ShortUrl);
             isCopied = true;
             StateHasChanged();
 
@@ -319,19 +323,30 @@
         }
     }
 
-    private async Task<string> GenerateTinyUrl(string? realUrl)
+    private async Task<string> GenerateShortUrl(string? realUrl)
     {
-        if (string.IsNullOrEmpty(realUrl)) return string.Empty;
+        if (string.IsNullOrEmpty(realUrl))
+        {
+            return string.Empty;
+        }
 
-        var client = ClientFactory.CreateClient("TinyUrl");
-        var response = await client.GetAsync("api-create.php?url=" + realUrl);
+        var client = ClientFactory.CreateClient("Zip1");
+        using var response = await client.PostAsJsonAsync("api/create", new Zip1CreateRequest(realUrl));
 
         if (response.IsSuccessStatusCode)
         {
-            var content = await response.Content.ReadAsStringAsync();
-            return content;
+            var content = await response.Content.ReadFromJsonAsync<Zip1CreateResponse>();
+
+            if (!string.IsNullOrEmpty(content?.ShortUrl))
+            {
+                return content.ShortUrl;
+            }
         }
 
         return "ERROR";
     }
+
+    private sealed record Zip1CreateRequest(string Url);
+
+    private sealed record Zip1CreateResponse([property: JsonPropertyName("short_url")] string? ShortUrl);
 }

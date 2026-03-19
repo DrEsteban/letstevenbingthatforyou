@@ -2,6 +2,8 @@
 
 @inject IJSRuntime JS
 
+<PageTitle>Let Steven Bing That For You - Search Result</PageTitle>
+
 <img src="./images/mouse_pointer.gif" id="fake_mouse" style="display: none;" alt="Fake Mouse Pointer" />
 
 <div id="bgDiv">
@@ -21,9 +23,9 @@
             </div>
         </form>
     </div>
-    <div id="lmbtfyResult" style="background-color: #fff;">
+        <div id="lmbtfyResult" style="background-color: #fff;">
         <div>
-            <h1>Let me Bing that for you!</h1>
+            <h1>Let Steven Bing that for you!</h1>
             <h2 class="step1">
                 Here's how you can do it yourself...
             </h2>
@@ -44,11 +46,14 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JS.InvokeVoidAsync(
-            "setQuery", Query
-        );
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync(
+                "setQuery", Query
+            );
 
-        await JS.InvokeAsync<IJSObjectReference>(
-            "import", "./Pages/BingThis.razor.js");
+            await JS.InvokeAsync<IJSObjectReference>(
+                "import", "./Pages/BingThis.razor.js");
+        }
     }
 }
