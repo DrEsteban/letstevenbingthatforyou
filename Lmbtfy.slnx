@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="global.json" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/" />
+  <Folder Name="/Solution Items/.github/workflows/">
+    <File Path=".github/workflows/azure-static-web-apps-gray-grass-006cb4a0f.yml" />
+    <File Path=".github/workflows/build-and-publish.yml" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="Lmbtfy.Blazor/Lmbtfy.Blazor.csproj" />
+  </Folder>
+</Solution>
