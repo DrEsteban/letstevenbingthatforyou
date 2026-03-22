@@ -44,7 +44,7 @@ jobs:
           app_location: "./Lmbtfy.Blazor" # App source code path
           api_location: "Api" # Api source code path - optional
           output_location: "wwwroot" # Built app content directory - optional
-          #github_id_token: ${{ steps.idtoken.outputs.result }}
+          github_id_token: ${{ steps.idtoken.outputs.result }}
           repo_token: ${{ github.token }}
           ###### End of Repository/Build Configurations ######
 
