@@ -1,0 +1,40 @@
+version: 2
+
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "NuGet"
+    groups:
+      major-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "Actions"
+    groups:
+      major-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
