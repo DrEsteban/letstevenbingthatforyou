@@ -1,9 +1,9 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
 @{
-    var currentPath = NavigationManager.Uri;
-    var noIndex = currentPath.Contains("/BingThis/") || currentPath.Contains("/generateurl");
+    var routePath = new Uri(NavigationManager.Uri).AbsolutePath.Trim('/');
+    var noIndex = !string.IsNullOrWhiteSpace(routePath);
 }
 
 @if (noIndex)

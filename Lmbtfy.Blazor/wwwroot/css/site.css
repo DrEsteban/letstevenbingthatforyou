@@ -180,7 +180,12 @@ body ul.credits li a {
     }
 
 .steps {
-    padding-left: 8px;
+    width: 28rem;
+    max-width: calc(100% - 2rem);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding-left: 5rem;
+    text-align: left;
 }
 
 .loading-container {

@@ -1,4 +1,5 @@
 ﻿@page "/BingThis/{query}"
+@page "/{slug}"
 
 @inject IJSRuntime JS
 
@@ -44,12 +45,35 @@
     [Parameter]
     public string? Query { get; set; }
 
+    [Parameter]
+    public string? Slug { get; set; }
+
+    private string SearchQuery
+    {
+        get
+        {
+            if (!string.IsNullOrWhiteSpace(Query))
+            {
+                return Query;
+            }
+
+            if (string.IsNullOrWhiteSpace(Slug))
+            {
+                return string.Empty;
+            }
+
+            return string.Join(
+                ' ',
+                Slug.Split(['_', '-', '+'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+        }
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JS.InvokeVoidAsync(
-                "setQuery", Query
+                "setQuery", SearchQuery
             );
 
             await JS.InvokeAsync<IJSObjectReference>(
