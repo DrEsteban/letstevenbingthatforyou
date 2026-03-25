@@ -246,3 +246,35 @@ body ul.credits li a {
         stroke-dashoffset: -124;
     }
 }
+
+:root {
+    --mobile-layout-scale: 1;
+    --mobile-widget-width: 720px;
+}
+
+@media (max-width: 1114px) {
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    body #hp_cellCenter #hp_container {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        transform: none;
+    }
+
+    #lmbtfyResult {
+        margin: 50px auto 30px auto;
+        max-width: 100%;
+    }
+
+    div#sbox.sw_sform {
+        width: var(--mobile-widget-width);
+        left: 50%;
+        margin-left: calc(var(--mobile-widget-width) / -2);
+        transform: scale(var(--mobile-layout-scale));
+        transform-origin: top center;
+    }
+}

@@ -1,18 +1,4 @@
 @inherits LayoutComponentBase
-@inject NavigationManager NavigationManager
-
-@{
-    var routePath = new Uri(NavigationManager.Uri).AbsolutePath.Trim('/');
-    var noIndex = !string.IsNullOrWhiteSpace(routePath);
-}
-
-@if (noIndex)
-{
-    <PageTitle>Let Steven Bing That For You - Search Result</PageTitle>
-    <HeadContent>
-        <meta name="robots" content="noindex,nofollow" />
-    </HeadContent>
-}
 
 <DynamicBackground />
 

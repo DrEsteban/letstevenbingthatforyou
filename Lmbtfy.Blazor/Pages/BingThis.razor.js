@@ -4,14 +4,15 @@
             if (index === undefined) {
                 index = 0;
             }
+            var self = this;
             var val = value.substr(0, index + 1);
-            $(this).attr('value', val);
-            if (index < value.length) {
-                setTimeout(function () { $(this).type(value, complete, index + 1); }, Math.random() * 240);
+            $(self).val(val);
+            if (index < value.length - 1) {
+                setTimeout(function () { $(self).type(value, complete, index + 1); }, Math.random() * 240);
             }
             else {
                 if (complete) {
-                    setTimeout(function () { complete() }, 240);
+                    setTimeout(function () { complete(); }, 240);
                 }
             }
         });
@@ -27,12 +28,22 @@
 });
 
 $(function () {
+    function getRenderedElementCenter(element) {
+        var rect = element.get(0).getBoundingClientRect();
+
+        return {
+            top: window.scrollY + rect.top + (rect.height / 2),
+            left: window.scrollX + rect.left + (rect.width / 2)
+        };
+    }
+
     function clickSearch(mouse) {
         $(".step4").doStep("drop", function () {
             var searchButton = $("#sb_form_go");
+            var searchButtonCenter = getRenderedElementCenter(searchButton);
             mouse.animate({
-                top: (searchButton.offset().top + 20) + "px",
-                left: (searchButton.offset().left + 25) + "px"
+                top: searchButtonCenter.top + "px",
+                left: searchButtonCenter.left + "px"
             }, 2000, 'swing', function () {
                 searchButton.click();
             });
@@ -45,18 +56,19 @@ $(function () {
         $(".step1").doStep("drop", function () {
             $(".step2").doStep("drop", function () {
                 fakeMouse.show("bounce", "fast");
+                var rect = searchQuery.get(0).getBoundingClientRect();
+                var targetTop = window.scrollY + rect.top + (rect.height / 2);
+                var targetLeft = window.scrollX + rect.left + (rect.width / 10);
+
                 fakeMouse.animate({
-                    top: (searchQuery.offset().top + 15) + "px",
-                    left: (searchQuery.offset().left + 10) + "px"
+                    top: targetTop + "px",
+                    left: targetLeft + "px"
                 }, 750, 'swing', function () {
                     searchQuery.focus();
                     fakeMouse.animate({ top: "+=18px", left: "+=10px" }, "fast");
 
                     $(".step3").doStep("drop", function () {
-                        // Passing query.length as index because for some weird reason
-                        // the setTimeout function isn't working here and only the first
-                        // letter of the query would be input otherwise
-                        searchQuery.type(query, function () { clickSearch(fakeMouse); }, query.length);
+                        searchQuery.type(query, function () { clickSearch(fakeMouse); });
                     });
                 });
             });
